@@ -16,8 +16,8 @@ def serial_reader(conn, num_channels, data_queue, stop_event):
                     raw = raw_bytes.decode(errors='replace').strip()
                 except Exception:
                     continue  # Skip this line if decoding fails
-                values = [float(v) for v in raw.split(',')]
-                if any(v > 4100 for v in values):
+                values = [int(v) for v in raw.split(',')]
+                if any(v > 4096 for v in values):
                     continue
                 if len(values) == num_channels:
                     data_queue.put(values)
